@@ -1,7 +1,11 @@
 FROM alpine:3.11.5
+MAINTAINER Julich Mera <julich.mera@gmail.com>
 
-RUN apk upgrade && apk add --no-cache chromium chromium-chromedriver
+RUN apk add --upgrade --no-cache chromium chromium-chromedriver
 RUN adduser -D driver
 
 USER driver
-CMD chromedriver --whitelisted-ips --verbose
+WORKDIR /home/driver/
+EXPOSE 9515
+
+CMD ["/usr/bin/chromedriver"]
