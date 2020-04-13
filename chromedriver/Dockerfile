@@ -4,3 +4,4 @@ RUN apk upgrade && apk add --no-cache chromium chromium-chromedriver
 RUN adduser -D driver
 
 USER driver
+CMD chromedriver --whitelisted-ips --verbose
