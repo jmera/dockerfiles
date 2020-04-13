@@ -4,12 +4,12 @@ services:
     build: .
     cap_add:
       - SYS_ADMIN
-    command: chromedriver --verbose
     container_name: chromedriver
+    command: ["--whitelisted-ips", "--verbose"]
+    entrypoint: ["/usr/bin/chromedriver"]
     environment:
       DISPLAY: host.docker.internal:0
+    image: jmera/chromedriver:latest
     ports:
       - 9515:9515
     shm_size: 1gb
-    user: driver
-    working_dir: /home/driver/
