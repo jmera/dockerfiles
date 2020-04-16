@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  vim:
+    container_name: vim
+    build:
+      context: .
+      args:
+        VERSION: v8.2.0587
+    user: dev
+    working_dir: /home/dev/
+    environment:
+      DISPLAY: host.docker.internal:0
+    command: vim
