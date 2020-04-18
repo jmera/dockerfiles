@@ -5,9 +5,9 @@ services:
     build:
       context: .
       args:
-        VERSION: v8.2.0587
+        VERSION: v8.2.0597
     user: dev
-    working_dir: /home/dev/
+    working_dir: /home/dev/workdir/
     environment:
       DISPLAY: host.docker.internal:0
     command: vim
