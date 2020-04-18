@@ -16,7 +16,7 @@ RUN apk add --update \
 RUN gem install rake
 
 # Compile and install VIM from source
-ARG VERSION=v8.2.0587
+ARG VERSION=v8.2.0598
 RUN git clone --depth 1 --branch $VERSION https://github.com/vim/vim.git /tmp/vim/
 RUN cd /tmp/vim/src && \
   ./configure --enable-rubyinterp --with-x && \

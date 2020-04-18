@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        VERSION: v8.2.0597
+        VERSION: v8.2.0598
     user: dev
     working_dir: /home/dev/workdir/
     environment:
