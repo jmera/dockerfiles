@@ -46,7 +46,44 @@ RUN set -eux; \
 
 ENV MYSQL_MAJOR 5.7
 
-
+RUN set -eux; \
+  apt-get update; \
+  apt-get install --yes --no-install-recommends \
+    bison \
+    build-essential \
+    ca-certificates \
+    cmake \
+    gcc \
+    git \
+    libaio-dev \
+    libncurses-dev \
+    libssl-dev \
+    make \
+    pkg-config; \
+  git clone --branch=$MYSQL_MAJOR --depth=1 https://github.com/mysql/mysql-server.git /tmp/mysql-server/; \
+  mkdir /tmp/mysql-server/build/; \
+  cd /tmp/mysql-server/build/; \
+  cmake .. \
+    -DBUILD_CONFIG=mysql_release \
+    -DDOWNLOAD_BOOST=1 \
+    -DINSTALL_MYSQLTESTDIR="" \
+    -DINSTALL_SBINDIR=/usr/sbin \
+    -DSYSCONFDIR=/etc/mysql/ \
+    -DWITH_BOOST=/tmp/boost/; \
+  make; \
+  make install; \
+  mkdir -p /etc/mysql/conf.d/; \
+  echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf; \
+  rm -rf /var/lib/mysql; \
+  mkdir -p /var/lib/mysql /var/run/mysqld; \
+  chown -R mysql:mysql /var/lib/mysql /var/run/mysqld; \
+  chmod 750 /var/run/mysqld /var/lib/mysql; \
+  apt-get remove --yes \
+    cmake \
+    gcc \
+    git \
+    make; \
+  rm -rf /var/lib/apt/lists/* /tmp/*
 
 VOLUME /var/lib/mysql
 
