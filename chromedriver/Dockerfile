@@ -1,4 +1,4 @@
-FROM alpine:20200917
+FROM alpine:3.14.4
 MAINTAINER Julich Mera <julich.mera@gmail.com>
 
 RUN apk add --upgrade --no-cache chromium chromium-chromedriver
