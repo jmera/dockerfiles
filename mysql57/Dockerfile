@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 
@@ -45,6 +45,7 @@ RUN set -eux; \
   rm -rf /var/lib/apt/lists/*
 
 ENV MYSQL_MAJOR 5.7
+ENV MYSQL_VERSION 5.7
 
 RUN set -eux; \
   apt-get update; \
@@ -66,6 +67,7 @@ RUN set -eux; \
   cmake .. \
     -DBUILD_CONFIG=mysql_release \
     -DDOWNLOAD_BOOST=1 \
+    -DINSTALL_BINDIR=/usr/bin \
     -DINSTALL_MYSQLTESTDIR="" \
     -DINSTALL_SBINDIR=/usr/sbin \
     -DSYSCONFDIR=/etc/mysql/ \
