@@ -70,6 +70,7 @@ RUN set -eux; \
     -DINSTALL_BINDIR=/usr/bin \
     -DINSTALL_MYSQLTESTDIR="" \
     -DINSTALL_SBINDIR=/usr/sbin \
+    -DMYSQL_DATADIR=/var/lib/mysql \
     -DSYSCONFDIR=/etc/mysql/ \
     -DWITH_BOOST=/tmp/boost/; \
   make; \
