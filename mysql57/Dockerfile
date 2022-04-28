@@ -68,11 +68,12 @@ RUN set -eux; \
     -DBUILD_CONFIG=mysql_release \
     -DDOWNLOAD_BOOST=1 \
     -DINSTALL_BINDIR=/usr/bin \
-    -DINSTALL_MYSQLTESTDIR="" \
+    -DINSTALL_MYSQLTESTDIR= \
     -DINSTALL_SBINDIR=/usr/sbin \
     -DMYSQL_DATADIR=/var/lib/mysql \
     -DSYSCONFDIR=/etc/mysql/ \
-    -DWITH_BOOST=/tmp/boost/; \
+    -DWITH_BOOST=/tmp/boost/ \
+    -DWITH_UNIT_TESTS=OFF; \
   make; \
   make install; \
   mkdir -p /etc/mysql/conf.d/; \
@@ -81,12 +82,16 @@ RUN set -eux; \
   mkdir -p /var/lib/mysql /var/run/mysqld; \
   chown -R mysql:mysql /var/lib/mysql /var/run/mysqld; \
   chmod 750 /var/run/mysqld /var/lib/mysql; \
-  apt-get remove --yes \
+  apt-get purge --yes \
     cmake \
     gcc \
     git \
-    make; \
-  rm -rf /var/lib/apt/lists/* /tmp/*
+    make \
+    pkg-config; \
+  rm -rf \
+    /tmp/* \
+    /usr/local/mysql/lib/ \
+    /var/lib/apt/lists/*
 
 VOLUME /var/lib/mysql
 
